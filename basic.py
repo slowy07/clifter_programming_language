@@ -128,6 +128,48 @@ class Lexer:
         else:
             return Token(TT_FLOAT, float(num_str))
 
+#nodes
+class NumberNode:
+    def __init__(self, tok):
+        self.tok = tok
+
+    def __repr__(self):
+        return f'{self.tok}'
+
+class BinOpNode:
+    def __init__(self, left_node, op_tok, right_node):
+        self.left_node = left_node
+        self.op_tok = op_tok
+        self.right_node = right_node
+
+    def __repr__(self):
+        return f'{self.right_node}, {self.op_tok}, {self.right_node}'
+
+
+#parser
+class Parser:
+    def __init__(tokens):
+        self.tokens = tokens
+        self.tok_idx = 1
+        self.advance()
+
+    def advance():
+        self.tok_idx += 1
+        if self.tok_idx < len(self.tokens):
+            self.current_tok = self.tokens[self.tok_idx]
+
+        return self.current_tok
+
+    def factor():
+        tok = self.current_tok
+        if tok.type in (TT_INT, TT_FLOAT):
+            self.advance()
+            return NumberNode(tok)
+    def term():
+        pass
+    def expr():
+        pass 
+
 #run
 def run(fn, text):
     lexer = Lexer(fn, text)
