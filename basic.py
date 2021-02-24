@@ -166,6 +166,15 @@ class Parser:
             self.advance()
             return NumberNode(tok)
     def term():
+        """
+        left = self.factor()
+        while self.current_tok in (TT_MUL, TT_DIV):
+            op_tok = self.current_tok
+            right = self.factor()
+            left = BinOpNode(left, op_tok, right)
+
+        return left
+        """
         pass
     def expr():
         pass 
