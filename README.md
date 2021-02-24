@@ -1,2 +1,2 @@
-# slowy_programming_language
+# my programming language
 my own programming language written with python
