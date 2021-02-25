@@ -17,3 +17,10 @@ atom = INT | FLOAT | IDENTIFIER
 
 
 ```
+
+## progress
+
+[x] Lexer
+[x] parser
+[x] interpreter and power operators
+[x] variables
