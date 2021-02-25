@@ -78,7 +78,7 @@ class Position:
 		return Position(self.idx, self.ln, self.col, self.fn, self.ftxt)
 
 
-TT_INT				= 'INT'
+TT_INT			= 'INT'
 TT_FLOAT    	= 'FLOAT'
 TT_IDENTIFIER	= 'IDENTIFIER'
 TT_KEYWORD		= 'KEYWORD'
@@ -86,18 +86,19 @@ TT_PLUS     	= 'PLUS'
 TT_MINUS    	= 'MINUS'
 TT_MUL      	= 'MUL'
 TT_DIV      	= 'DIV'
-TT_POW				= 'POW'
-TT_EQ					= 'EQ'
+TT_POW			= 'POW'
+TT_EQ			= 'EQ'
 TT_LPAREN   	= 'LPAREN'
 TT_RPAREN   	= 'RPAREN'
-TT_EOF				= 'EOF'
+TT_EOF			= 'EOF'
 
 KEYWORDS = [
 	'var'
 ]
 
-#tokens
 
+
+#token
 class Token:
 	def __init__(self, type_, value=None, pos_start=None, pos_end=None):
 		self.type = type_
@@ -118,10 +119,7 @@ class Token:
 		if self.value: return f'{self.type}:{self.value}'
 		return f'{self.type}'
 
-#######################################
-# LEXER
-#######################################
-
+#lexer
 class Lexer:
 	def __init__(self, fn, text):
 		self.fn = fn
