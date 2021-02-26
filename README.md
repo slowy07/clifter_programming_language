@@ -5,7 +5,7 @@
 
 ![progress](https://progress-bar.dev/40/)
 
-my own programming language written with python
+my programming language written with python
 
 
 ## information variables
@@ -42,4 +42,6 @@ TT_GTE			= 'GTE'             # greater than equal
 >>for i = 1 to 6 then var result = result * i
 >>result
 >>120
+>>if mynum == 1 then mynum + 123
+>>124
 ```
