@@ -1032,7 +1032,7 @@ show_information =f'''
 slwy programming 1.0.0
 [{datenow.strftime('%B - %d - %Y')}] on {platform.system()}\
 '''
-shell_running = 'slw>>'
+shell_running = ['slw>>', '<stdin>']
 
 #run
 
