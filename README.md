@@ -3,7 +3,7 @@
 [![license](https://img.shields.io/github/license/slowy07/slowy_programming_language?style=for-the-badge)](LICENSE)
 ![python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
 
-![progress](https://progress-bar.dev/35/)
+![progress](https://progress-bar.dev/40/)
 
 my own programming language written with python
 
@@ -28,4 +28,18 @@ TT_LT			= 'LT'              # less than
 TT_GT			= 'GT'              # greater than
 TT_LTE			= 'LTE'             # less than equal
 TT_GTE			= 'GTE'             # greater than equal
+```
+
+## basic terminal
+```
+>> var number = 2
+>>2
+>>number + 2
+>>4
+```
+```
+>>var mynum = 1
+>>for i = 1 to 6 then var result = result * i
+>>result
+>>120
 ```
