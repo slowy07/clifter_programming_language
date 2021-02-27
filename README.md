@@ -3,7 +3,7 @@
 [![license](https://img.shields.io/github/license/slowy07/slowy_programming_language?style=for-the-badge)](LICENSE)
 ![python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
 
-![progress](https://progress-bar.dev/40/)
+![progress](https://progress-bar.dev/45/)
 
 my programming language written with python
 
@@ -44,4 +44,10 @@ TT_GTE			= 'GTE'             # greater than equal
 >>120
 >>if mynum == 1 then mynum + 123
 >>124
+```
+```
+>>fun multiple(a, b) -> a * b
+<function multiple>
+>>multiple(5, 5)
+25
 ```
