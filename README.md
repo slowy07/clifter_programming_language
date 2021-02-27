@@ -3,7 +3,7 @@
 [![license](https://img.shields.io/github/license/slowy07/slowy_programming_language?style=for-the-badge)](LICENSE)
 ![python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
 
-![progress](https://progress-bar.dev/45/)
+![progress](https://progress-bar.dev/50/)
 
 my programming language written with python
 
@@ -13,6 +13,7 @@ my programming language written with python
 TT_INT			= 'INT'             #int
 TT_FLOAT    	= 'FLOAT'           #float
 TT_IDENTIFIER	= 'IDENTIFIER'      #identifier variable
+TT_STRING       = 'STRING'          #string
 TT_KEYWORD		= 'KEYWORD'         #keyword 'and' 'or' 'not' 'var'
 TT_PLUS     	= 'PLUS'            #plus operator
 TT_MINUS    	= 'MINUS'           #minus operator
@@ -31,12 +32,14 @@ TT_GTE			= 'GTE'             # greater than equal
 ```
 
 ## basic terminal
+**variable**
 ```
 >> var number = 2
 >>2
 >>number + 2
 >>4
 ```
+**logical operation**
 ```
 >>var mynum = 1
 >>for i = 1 to 6 then var result = result * i
@@ -45,9 +48,22 @@ TT_GTE			= 'GTE'             # greater than equal
 >>if mynum == 1 then mynum + 123
 >>124
 ```
+**function**
 ```
 >>fun multiple(a, b) -> a * b
 <function multiple>
 >>multiple(5, 5)
 25
+```
+**string**
+```
+>>"hello world"
+"hello world"
+>>fun greetings(name) -> "hello " + name
+>>greetings("jole")
+"hello jole"
+>>var name = "arfy"
+>>var name2 = "slowy"
+>>"hello " + name + " "+name2
+"hello arfy slowy"
 ```
