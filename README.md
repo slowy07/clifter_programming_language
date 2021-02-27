@@ -1,11 +1,15 @@
-# my programming language
+# clifter programming language
 
 [![license](https://img.shields.io/github/license/slowy07/slowy_programming_language?style=for-the-badge)](LICENSE)
 ![python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
 
-![progress](https://progress-bar.dev/50/)
+![progress](https://progress-bar.dev/55/)
 
 my programming language written with python
+reference
+- [introduction to computers and programming](https://www.pearsonhighered.com/assets/samplechapter/0/3/2/1/0321537114.pdf)
+- [introduction to python](http://tdc-www.harvard.edu/Python.pdf)
+- [advanced programming language design](https://www.researchgate.net/publication/220692467_Advanced_programming_language_design)
 
 
 ## information variables
@@ -66,4 +70,20 @@ TT_GTE			= 'GTE'             # greater than equal
 >>var name2 = "slowy"
 >>"hello " + name + " "+name2
 "hello arfy slowy"
+```
+**list**
+```
+>> var list1 = [1,2,3,4]
+>> list1
+[1,2,3,4]
+>> list1 + 5
+[1,2,3,4,5]
+>>list1 * [6,7,8]
+[1,2,3,4,5,6,7,8]
+>>list1/2
+3
+>>list1/0
+1
+>>for i = 1 to 5 then 5 ^ i
+[5,25,125,625]
 ```
