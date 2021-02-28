@@ -3,7 +3,7 @@
 [![license](https://img.shields.io/github/license/slowy07/slowy_programming_language?style=for-the-badge)](LICENSE)
 ![python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
 
-![progress](https://progress-bar.dev/60/)
+![progress](https://progress-bar.dev/80/)
 
 my programming language written with python
 reference
@@ -86,4 +86,16 @@ TT_GTE			= 'GTE'             # greater than equal
 1
 >>for i = 1 to 5 then 5 ^ i
 [5,25,125,625]
+```
+**multi line statement**
+```
+clifter 1.0.0[February - 28 - 2021] 
+on ----- [Python ------]
+[]>1+2;3+4;5+6;
+[3, 7, 11]
+[]>var multi = if 5 == 5 then "yuhuuuuu" else "nooooo"
+"yuhuuuuu"
+[]>multi
+"yuhuuuuu"
+[]>
 ```
