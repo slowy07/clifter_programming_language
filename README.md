@@ -97,3 +97,8 @@ on ----- [Python ------]
 "yuhuuuuu"
 []>
 ```
+
+**running script**
+```
+[]>run("hello_world.clf")
+```
