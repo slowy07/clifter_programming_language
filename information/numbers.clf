@@ -1,0 +1,13 @@
+var mynumber1 = 4
+var mynumber2 = 5
+
+print("adding")
+print(mynumber1 + mynumber2)
+print("sub")
+print(mynumber1 - mynumber2)
+print("multiply")
+print(mynumber1 * mynumber2)
+print("div")
+print(mynumber1 / mynumber2)
+print("power")
+print(mynumber1 ^ mynumber2)
