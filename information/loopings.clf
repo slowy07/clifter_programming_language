@@ -1,0 +1,16 @@
+var result = 1
+var result2 = 1
+var result3 = 1
+
+
+for i = 5 to 0 step -1 then var result = result * i
+for i = 1 to 6 then var result2 = result2 * i
+
+for i = 1 to 6 then
+    var result3 = result3 + i
+end
+
+print(result3)
+
+print(result2)
+print(result)
