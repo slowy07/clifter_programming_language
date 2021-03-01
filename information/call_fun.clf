@@ -1,0 +1,15 @@
+fun greeting(name) -> "hello "+name
+print(greeting("arfy"))
+
+fun add(a,b)
+    return a + b
+end
+
+fun multiple(a,b)
+    var result = a * b
+    return result
+end
+
+
+print(multiple(3,4))
+print(add(3,3))
