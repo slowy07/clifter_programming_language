@@ -3,8 +3,6 @@
 [![license](https://img.shields.io/github/license/slowy07/slowy_programming_language?style=for-the-badge)](LICENSE)
 ![python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
 
-![progress](https://progress-bar.dev/80/)
-
 my programming language written with python
 reference
 - [introduction to computers and programming](https://www.pearsonhighered.com/assets/samplechapter/0/3/2/1/0321537114.pdf)
@@ -14,25 +12,25 @@ reference
 
 ## information variables
 ```python
-TT_INT			= 'INT'             #int
-TT_FLOAT    	= 'FLOAT'           #float
-TT_IDENTIFIER	= 'IDENTIFIER'      #identifier variable
-TT_STRING       = 'STRING'          #string
-TT_KEYWORD		= 'KEYWORD'         #keyword 'and' 'or' 'not' 'var'
-TT_PLUS     	= 'PLUS'            #plus operator
-TT_MINUS    	= 'MINUS'           #minus operator
-TT_MUL      	= 'MUL'             #multiple
-TT_DIV      	= 'DIV'             #divide
-TT_POW			= 'POW'             #power number
-TT_EQ			= 'EQ'              #equal 
-TT_LPAREN   	= 'LPAREN'          # (
-TT_RPAREN   	= 'RPAREN'          # )
-TT_EE			= 'EE'              # equal
-TT_NE			= 'NE'              # not equal
-TT_LT			= 'LT'              # less than
-TT_GT			= 'GT'              # greater than
-TT_LTE			= 'LTE'             # less than equal
-TT_GTE			= 'GTE'             # greater than equal
+CLF_INT			= 'INT'             #int
+CLF_FLOAT    	= 'FLOAT'           #float
+CLF_IDENTIFIER	= 'IDENTIFIER'      #identifier variable
+CLF_STRING       = 'STRING'          #string
+CLF_KEYWORD		= 'KEYWORD'         #keyword 'and' 'or' 'fun' 'var'
+CLF_PLUS     	= 'PLUS'            #plus operator
+CLF_MINUS    	= 'MINUS'           #minus operator
+CLF_MUL      	= 'MUL'             #multiple
+CLF_DIV      	= 'DIV'             #divide
+CLF_POW			= 'POW'             #power number
+CLF_EQ			= 'EQ'              #equal 
+CLF_LPAREN   	= 'LPAREN'          # (
+CLF_RPAREN   	= 'RPAREN'          # )
+CLF_EE			= 'EE'              # equal
+CLF_NE			= 'NE'              # not equal
+CLF_LT			= 'LT'              # less than
+CLF_GT			= 'GT'              # greater than
+CLF_LTE			= 'LTE'             # less than equal
+CLF_GTE			= 'GTE'             # greater than equal
 ```
 
 ## basic terminal
