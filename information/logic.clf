@@ -1,0 +1,14 @@
+var number = 12
+var number2 = 20
+
+if number == number2 then
+    print("same")
+end
+if number != number2 then
+    print("not same")
+end
+
+
+
+#one line statement
+if number == 12 then print("same") else print("not same")
