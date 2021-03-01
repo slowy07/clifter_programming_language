@@ -1,12 +1,12 @@
-import basic
+import clifter_lang
 
 
-print(basic.show_information)
+print(clifter_lang.show_information)
 while True:
-    text = input(f'{basic.shell_running[0]}')
+    text = input(f'{clifter_lang.shell_running[0]}')
     
     if text.strip() == "": continue
-    result, error = basic.run(f'{basic.shell_running[1]}', text)
+    result, error = clifter_lang.run(f'{clifter_lang.shell_running[1]}', text)
 
     if error: print(error.as_string())
     elif result: 
