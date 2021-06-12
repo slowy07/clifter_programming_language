@@ -9,6 +9,11 @@ reference
 - [introduction to python](http://tdc-www.harvard.edu/Python.pdf)
 - [advanced programming language design](https://www.researchgate.net/publication/220692467_Advanced_programming_language_design)
 
+## running
+```bash
+python shell.py
+```
+
 
 ## information variables
 ```python
