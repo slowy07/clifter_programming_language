@@ -1,6 +1,5 @@
 import clifter_lang
 
-
 print(clifter_lang.show_information)
 while True:
     text = input(f'{clifter_lang.shell_running[0]}')
