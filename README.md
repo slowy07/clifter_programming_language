@@ -15,7 +15,7 @@ python shell.py
 ```
 
 
-## information variables
+## information variableshttps://github.com/slowy07/clifter_programming_language
 ```python
 CLF_INT			= 'INT'             #int
 CLF_FLOAT    	= 'FLOAT'           #float
@@ -38,7 +38,7 @@ CLF_LTE			= 'LTE'             # less than equal
 CLF_GTE			= 'GTE'             # greater than equal
 ```
 
-## basic terminal
+# example
 **variable**
 ```
 >> var number = 2
