@@ -2128,7 +2128,7 @@ show_information =f'''
 Clifter [{datenow.strftime('%B - %d - %Y')}] 
 on {platform.system()} [Python {platform.python_version()}]\
 '''
-shell_running = ['[]>', '<stdin>']
+shell_running = ['>>', '<stdin>']
 
 #run
 global_symbol_table = SymbolTable()
