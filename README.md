@@ -2,6 +2,8 @@
 
 [![license](https://img.shields.io/github/license/slowy07/slowy_programming_language?style=for-the-badge)](LICENSE)
 ![python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![codequality](https://img.shields.io/codefactor/grade/github/slowy07/clifter_programming_language/main?style=for-the-badge)
+
 
 my programming language written with python
 reference
