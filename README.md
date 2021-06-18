@@ -17,7 +17,7 @@ python shell.py
 ```
 
 
-## information variableshttps://github.com/slowy07/clifter_programming_language
+## information
 ```python
 CLF_INT			= 'INT'             #int
 CLF_FLOAT    	= 'FLOAT'           #float
