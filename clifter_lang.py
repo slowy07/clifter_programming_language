@@ -148,7 +148,8 @@ class Token:
     return self.type == type_ and self.value == value
   
   def __repr__(self):
-    if self.value: return f'{self.type}:{self.value}'
+    if self.value: 
+      return f'{self.type}:{self.value}'
     return f'{self.type}'
 
 
@@ -218,7 +219,8 @@ class Lexer:
         self.advance()
       elif self.current_char == '!':
         token, error = self.make_not_equals()
-        if error: return [], error
+        if error: 
+          return [], error
         tokens.append(token)
       elif self.current_char == '=':
         tokens.append(self.make_equals())
@@ -551,7 +553,8 @@ class ParseResult:
   def register(self, res):
     self.last_registered_advance_count = res.advance_count
     self.advance_count += res.advance_count
-    if res.error: self.error = res.error
+    if res.error: 
+      self.error = res.error
     return res.node
 
   def try_register(self, res):
@@ -612,7 +615,8 @@ class Parser:
       self.advance()
 
     statement = res.register(self.statement())
-    if res.error: return res
+    if res.error: 
+      return res
     statements.append(statement)
 
     more_statements = True
@@ -626,7 +630,8 @@ class Parser:
       if newline_count == 0:
         more_statements = False
       
-      if not more_statements: break
+      if not more_statements: 
+        break
       statement = res.try_register(self.statement())
       if not statement:
         self.reverse(res.to_reverse_count)
