@@ -7,8 +7,4 @@ end
 if number != number2 then
     print("not same")
 end
-
-
-
-#one line statement
 if number == 12 then print("same") else print("not same")
