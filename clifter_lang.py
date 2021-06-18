@@ -148,7 +148,8 @@ class Token:
     return self.type == type_ and self.value == value
   
   def __repr__(self):
-    if self.value: return f'{self.type}:{self.value}'
+    if self.value: 
+      return f'{self.type}:{self.value}'
     return f'{self.type}'
 
 
@@ -1144,7 +1145,8 @@ class Parser:
     self.advance()
 
     condition = res.register(self.expr())
-    if res.error: return res
+    if res.error: 
+      return res
 
     if not self.current_tok.matches(CLF_KEYWORD, 'then'):
       return res.failure(InvalidSyntaxError(
@@ -1435,7 +1437,8 @@ class Value:
     return False
 
   def illegal_operation(self, other=None):
-    if not other: other = self
+    if not other: 
+      other = self
     return RTError(
       self.pos_start, other.pos_end,
       'Illegal operation',
@@ -1684,7 +1687,8 @@ class BaseFunction(Value):
   def check_and_populate_args(self, arg_names, args, exec_ctx):
     res = RTResult()
     res.register(self.check_args(arg_names, args))
-    if res.should_return(): return res
+    if res.should_return(): 
+      return res
     self.populate_args(arg_names, args, exec_ctx)
     return res.success(None)
 
@@ -1701,10 +1705,12 @@ class Function(BaseFunction):
     exec_ctx = self.generate_new_context()
 
     res.register(self.check_and_populate_args(self.arg_names, args, exec_ctx))
-    if res.should_return(): return res
+    if res.should_return(): 
+      return res
 
     value = res.register(interpreter.visit(self.body_node, exec_ctx))
-    if res.should_return() and res.func_return_value == None: return res
+    if res.should_return() and res.func_return_value == None: 
+      return res
 
     ret_value = (value if self.should_auto_return else None) or res.func_return_value or Number.null
     return res.success(ret_value)
@@ -2009,7 +2015,8 @@ class Interpreter:
     res = RTResult()
     var_name = node.var_name_tok.value
     value = res.register(self.visit(node.value_node, context))
-    if res.should_return(): return res
+    if res.should_return(): 
+      return res
 
     context.symbol_table.set(var_name, value)
     return res.success(value)
@@ -2017,9 +2024,11 @@ class Interpreter:
   def visit_BinOpNode(self, node, context):
     res = RTResult()
     left = res.register(self.visit(node.left_node, context))
-    if res.should_return(): return res
+    if res.should_return(): 
+      return res
     right = res.register(self.visit(node.right_node, context))
-    if res.should_return(): return res
+    if res.should_return(): 
+      return res
 
     if node.op_tok.type == CLF_PLUS:
       result, error = left.added_to(right)
@@ -2095,14 +2104,17 @@ class Interpreter:
     elements = []
 
     start_value = res.register(self.visit(node.start_value_node, context))
-    if res.should_return(): return res
+    if res.should_return(): 
+      return res
 
     end_value = res.register(self.visit(node.end_value_node, context))
-    if res.should_return(): return res
+    if res.should_return(): 
+      return res
 
     if node.step_value_node:
       step_value = res.register(self.visit(node.step_value_node, context))
-      if res.should_return(): return res
+      if res.should_return(): 
+        return res
     else:
       step_value = Number(1)
 
@@ -2118,7 +2130,8 @@ class Interpreter:
       i += step_value.value
 
       value = res.register(self.visit(node.body_node, context))
-      if res.should_return() and res.loop_should_continue == False and res.loop_should_break == False: return res
+      if res.should_return() and res.loop_should_continue == False and res.loop_should_break == False: 
+        return res
       
       if res.loop_should_continue:
         continue
@@ -2178,15 +2191,18 @@ class Interpreter:
     args = []
 
     value_to_call = res.register(self.visit(node.node_to_call, context))
-    if res.should_return(): return res
+    if res.should_return(): 
+      return res
     value_to_call = value_to_call.copy().set_pos(node.pos_start, node.pos_end)
 
     for arg_node in node.arg_nodes:
       args.append(res.register(self.visit(arg_node, context)))
-      if res.should_return(): return res
+      if res.should_return(): 
+        return res
 
     return_value = res.register(value_to_call.execute(args))
-    if res.should_return(): return res
+    if res.should_return(): 
+      return res
     return_value = return_value.copy().set_pos(node.pos_start, node.pos_end).set_context(context)
     return res.success(return_value)
 
@@ -2242,12 +2258,14 @@ def run(fn, text):
   # Generate tokens
   lexer = Lexer(fn, text)
   tokens, error = lexer.make_tokens()
-  if error: return None, error
+  if error: 
+    return None, error
   
   # Generate AST
   parser = Parser(tokens)
   ast = parser.parse()
-  if ast.error: return None, ast.error
+  if ast.error: 
+    return None, ast.error
 
   # Run program
   interpreter = Interpreter()
