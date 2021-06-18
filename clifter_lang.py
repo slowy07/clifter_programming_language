@@ -825,7 +825,8 @@ class Parser:
       res.register_advancement()
       self.advance()
       expr = res.register(self.expr())
-      if res.error: return res
+      if res.error: 
+        return res
       if self.current_tok.type == CLF_RPAREN:
         res.register_advancement()
         self.advance()
@@ -838,27 +839,32 @@ class Parser:
 
     elif tok.type == CLF_LSQUARE:
       list_expr = res.register(self.list_expr())
-      if res.error: return res
+      if res.error: 
+        return res
       return res.success(list_expr)
     
     elif tok.matches(CLF_KEYWORD, 'if'):
       if_expr = res.register(self.if_expr())
-      if res.error: return res
+      if res.error: 
+        return res
       return res.success(if_expr)
 
     elif tok.matches(CLF_KEYWORD, 'for'):
       for_expr = res.register(self.for_expr())
-      if res.error: return res
+      if res.error: 
+        return res
       return res.success(for_expr)
 
     elif tok.matches(CLF_KEYWORD, 'while'):
       while_expr = res.register(self.while_expr())
-      if res.error: return res
+      if res.error: 
+        return res
       return res.success(while_expr)
 
     elif tok.matches(CLF_KEYWORD, 'fun'):
       func_def = res.register(self.func_def())
-      if res.error: return res
+      if res.error: 
+        return res
       return res.success(func_def)
 
     return res.failure(InvalidSyntaxError(
@@ -896,7 +902,8 @@ class Parser:
         self.advance()
 
         element_nodes.append(res.register(self.expr()))
-        if res.error: return res
+        if res.error: 
+          return res
 
       if self.current_tok.type != CLF_RSQUARE:
         return res.failure(InvalidSyntaxError(
@@ -916,7 +923,8 @@ class Parser:
   def if_expr(self):
     res = ParseResult()
     all_cases = res.register(self.if_expr_cases('if'))
-    if res.error: return res
+    if res.error: 
+      return res
     cases, else_case = all_cases
     return res.success(IfNode(cases, else_case))
 
@@ -936,7 +944,8 @@ class Parser:
         self.advance()
 
         statements = res.register(self.statements())
-        if res.error: return res
+        if res.error: 
+          return res
         else_case = (statements, True)
 
         if self.current_tok.matches(CLF_KEYWORD, 'end'):
@@ -949,7 +958,8 @@ class Parser:
           ))
       else:
         expr = res.register(self.statement())
-        if res.error: return res
+        if res.error: 
+          return res
         else_case = (expr, False)
 
     return res.success(else_case)
@@ -960,11 +970,13 @@ class Parser:
 
     if self.current_tok.matches(CLF_KEYWORD, 'elif'):
       all_cases = res.register(self.if_expr_b())
-      if res.error: return res
+      if res.error: 
+        return res
       cases, else_case = all_cases
     else:
       else_case = res.register(self.if_expr_c())
-      if res.error: return res
+      if res.error: 
+        return res
     
     return res.success((cases, else_case))
 
@@ -983,7 +995,8 @@ class Parser:
     self.advance()
 
     condition = res.register(self.expr())
-    if res.error: return res
+    if res.error: 
+      return res
 
     if not self.current_tok.matches(CLF_KEYWORD, 'then'):
       return res.failure(InvalidSyntaxError(
@@ -999,7 +1012,8 @@ class Parser:
       self.advance()
 
       statements = res.register(self.statements())
-      if res.error: return res
+      if res.error: 
+        return res
       cases.append((condition, statements, True))
 
       if self.current_tok.matches(CLF_KEYWORD, 'end'):
@@ -1007,16 +1021,19 @@ class Parser:
         self.advance()
       else:
         all_cases = res.register(self.if_expr_b_or_c())
-        if res.error: return res
+        if res.error: 
+          return res
         new_cases, else_case = all_cases
         cases.extend(new_cases)
     else:
       expr = res.register(self.statement())
-      if res.error: return res
+      if res.error: 
+        return res
       cases.append((condition, expr, False))
 
       all_cases = res.register(self.if_expr_b_or_c())
-      if res.error: return res
+      if res.error: 
+        return res
       new_cases, else_case = all_cases
       cases.extend(new_cases)
 
@@ -1054,7 +1071,8 @@ class Parser:
     self.advance()
 
     start_value = res.register(self.expr())
-    if res.error: return res
+    if res.error: 
+      return res
 
     if not self.current_tok.matches(CLF_KEYWORD, 'to'):
       return res.failure(InvalidSyntaxError(
@@ -1066,14 +1084,16 @@ class Parser:
     self.advance()
 
     end_value = res.register(self.expr())
-    if res.error: return res
+    if res.error: 
+      return res
 
     if self.current_tok.matches(CLF_KEYWORD, 'step'):
       res.register_advancement()
       self.advance()
 
       step_value = res.register(self.expr())
-      if res.error: return res
+      if res.error: 
+        return res
     else:
       step_value = None
 
@@ -1091,7 +1111,8 @@ class Parser:
       self.advance()
 
       body = res.register(self.statements())
-      if res.error: return res
+      if res.error: 
+        return res
 
       if not self.current_tok.matches(CLF_KEYWORD, 'end'):
         return res.failure(InvalidSyntaxError(
@@ -1105,7 +1126,8 @@ class Parser:
       return res.success(ForNode(var_name, start_value, end_value, step_value, body, True))
     
     body = res.register(self.statement())
-    if res.error: return res
+    if res.error: 
+      return res
 
     return res.success(ForNode(var_name, start_value, end_value, step_value, body, False))
 
@@ -1138,7 +1160,8 @@ class Parser:
       self.advance()
 
       body = res.register(self.statements())
-      if res.error: return res
+      if res.error: 
+        return res
 
       if not self.current_tok.matches(CLF_KEYWORD, 'end'):
         return res.failure(InvalidSyntaxError(
@@ -1152,7 +1175,8 @@ class Parser:
       return res.success(WhileNode(condition, body, True))
     
     body = res.register(self.statement())
-    if res.error: return res
+    if res.error: 
+      return res
 
     return res.success(WhileNode(condition, body, False))
 
@@ -1228,7 +1252,8 @@ class Parser:
       self.advance()
 
       body = res.register(self.expr())
-      if res.error: return res
+      if res.error: 
+        return res
 
       return res.success(FuncDefNode(
         var_name_tok,
@@ -1247,7 +1272,8 @@ class Parser:
     self.advance()
 
     body = res.register(self.statements())
-    if res.error: return res
+    if res.error: 
+      return res
 
     if not self.current_tok.matches(CLF_KEYWORD, 'end'):
       return res.failure(InvalidSyntaxError(
@@ -1273,14 +1299,16 @@ class Parser:
     
     res = ParseResult()
     left = res.register(func_a())
-    if res.error: return res
+    if res.error: 
+      return res
 
     while self.current_tok.type in ops or (self.current_tok.type, self.current_tok.value) in ops:
       op_tok = self.current_tok
       res.register_advancement()
       self.advance()
       right = res.register(func_b())
-      if res.error: return res
+      if res.error: 
+        return res
       left = BinOpNode(left, op_tok, right)
 
     return res.success(left)
