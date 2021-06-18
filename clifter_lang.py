@@ -148,8 +148,7 @@ class Token:
     return self.type == type_ and self.value == value
   
   def __repr__(self):
-    if self.value: 
-      return f'{self.type}:{self.value}'
+    if self.value: return f'{self.type}:{self.value}'
     return f'{self.type}'
 
 
@@ -702,7 +701,8 @@ class Parser:
       res.register_advancement()
       self.advance()
       expr = res.register(self.expr())
-      if res.error: return res
+      if res.error: 
+        return res
       return res.success(VarAssignNode(var_name, expr))
 
     node = res.register(self.bin_op(self.comp_expr, ((CLF_KEYWORD, 'and'), (CLF_KEYWORD, 'or'))))
@@ -724,7 +724,8 @@ class Parser:
       self.advance()
 
       node = res.register(self.comp_expr())
-      if res.error: return res
+      if res.error: 
+        return res
       return res.success(UnaryOpNode(op_tok, node))
     
     node = res.register(self.bin_op(self.arith_expr, (CLF_EE, CLF_NE, CLF_LT, CLF_GT, CLF_LTE, CLF_GTE)))
@@ -751,7 +752,8 @@ class Parser:
       res.register_advancement()
       self.advance()
       factor = res.register(self.factor())
-      if res.error: return res
+      if res.error: 
+        return res
       return res.success(UnaryOpNode(tok, factor))
 
     return self.power()
@@ -762,7 +764,8 @@ class Parser:
   def call(self):
     res = ParseResult()
     atom = res.register(self.atom())
-    if res.error: return res
+    if res.error: 
+      return res
 
     if self.current_tok.type == CLF_LPAREN:
       res.register_advancement()
@@ -785,7 +788,8 @@ class Parser:
           self.advance()
 
           arg_nodes.append(res.register(self.expr()))
-          if res.error: return res
+          if res.error: 
+            return res
 
         if self.current_tok.type != CLF_RPAREN:
           return res.failure(InvalidSyntaxError(
