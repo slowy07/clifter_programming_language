@@ -7,7 +7,6 @@
 
 
 my programming language written with python
-reference
 - [introduction to computers and programming](https://www.pearsonhighered.com/assets/samplechapter/0/3/2/1/0321537114.pdf)
 - [introduction to python](http://tdc-www.harvard.edu/Python.pdf)
 - [advanced programming language design](https://www.researchgate.net/publication/220692467_Advanced_programming_language_design)
