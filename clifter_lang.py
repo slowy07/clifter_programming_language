@@ -1296,7 +1296,7 @@ class Parser:
   ###################################
 
   def bin_op(self, func_a, ops, func_b=None):
-    if func_b == None:
+    if func_b is None:
       func_b = func_a
     
     res = ParseResult()
@@ -1709,7 +1709,7 @@ class Function(BaseFunction):
       return res
 
     value = res.register(interpreter.visit(self.body_node, exec_ctx))
-    if res.should_return() and res.func_return_value == None: 
+    if res.should_return() and res.func_return_value is None: 
       return res
 
     ret_value = (value if self.should_auto_return else None) or res.func_return_value or Number.null
@@ -1951,7 +1951,7 @@ class SymbolTable:
 
   def get(self, name):
     value = self.symbols.get(name, None)
-    if value == None and self.parent:
+    if value is None and self.parent:
       return self.parent.get(name)
     return value
 
