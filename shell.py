@@ -1,7 +1,10 @@
 import clifter_lang
+from signal import signal, SIGINT
+
 
 print(clifter_lang.show_information)
 while True:
+    signal(SIGINT, clifter_lang.exit_handler)
     text = input(f'{clifter_lang.shell_running[0]}')
     
     if text.strip() == "": 
