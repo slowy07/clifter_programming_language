@@ -4,6 +4,7 @@ import platform
 import string
 import os
 import math
+from sys import exit
 from strings_with_arrows import *
 
 
@@ -2274,3 +2275,8 @@ def run(fn, text):
   result = interpreter.visit(ast.node, context)
 
   return result.value, result.error
+
+def exit_handler(signal_received, frame):
+
+  print("\n exiting program!")
+  exit(0)
