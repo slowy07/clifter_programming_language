@@ -734,7 +734,7 @@ class Parser:
     if res.error:
       return res.failure(InvalidSyntaxError(
         self.current_tok.pos_start, self.current_tok.pos_end,
-        "Expected int, float, identifier, '+', '-', '(', '[', 'if', 'for', 'while', 'fun' or 'not'"
+        "Expected int, float, identifier, '+', '-', '(', '[', '^', 'if', 'for', 'while', 'fun' or 'not'"
       ))
 
     return res.success(node)
@@ -781,7 +781,7 @@ class Parser:
         if res.error:
           return res.failure(InvalidSyntaxError(
             self.current_tok.pos_start, self.current_tok.pos_end,
-            "Expected ')', 'var', 'if', 'for', 'while', 'fun', int, float, identifier, '+', '-', '(', '[' or 'not'"
+            "Expected ')', 'var', 'if', 'for', 'while', 'fun', int, float, identifier, '+', '-', '^', '(', '[' or 'not'"
           ))
 
         while self.current_tok.type == CLF_COMMA:
@@ -870,7 +870,7 @@ class Parser:
 
     return res.failure(InvalidSyntaxError(
       tok.pos_start, tok.pos_end,
-      "Expected int, float, identifier, '+', '-', '(', '[', IF', 'for', 'while', 'fun'"
+      "Expected int, float, identifier, '+', '-', '(', '^', '[', IF', 'for', 'while', 'fun'"
     ))
 
   def list_expr(self):
