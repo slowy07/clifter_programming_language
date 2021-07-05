@@ -1480,8 +1480,8 @@ class Number(Value):
       return Number(self.value / other.value).set_context(self.context), None
     else:
       return None, Value.illegal_operation(self, other)
-
   def powed_by(self, other):
+
     if isinstance(other, Number):
       return Number(self.value ** other.value).set_context(self.context), None
     else:
@@ -1536,7 +1536,7 @@ class Number(Value):
       return None, Value.illegal_operation(self, other)
 
   def notted(self):
-    return Number(1 if self.value == 0 else 0).set_context(self.context), None
+    return Number(int(1 if self.value == 0 else 0)).set_context(self.context), None
 
   def copy(self):
     copy = Number(self.value)
