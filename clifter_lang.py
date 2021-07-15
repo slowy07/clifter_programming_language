@@ -110,6 +110,7 @@ CLF_GTE				  = 'GTE'
 CLF_COMMA			  = 'COMMA'
 CLF_ARROW			  = 'ARROW'
 CLF_NEWLINE		  = 'NEWLINE'
+CLF_DOT         = 'DOT'
 CLF_EOF				  = 'EOF'
 
 KEYWORDS = [
@@ -130,6 +131,7 @@ KEYWORDS = [
   'return',
   'continue',
   'break',
+  'class',
 ]
 
 class Token:
@@ -217,6 +219,9 @@ class Lexer:
         self.advance()
       elif self.current_char == ']':
         tokens.append(Token(CLF_RSQUARE, pos_start=self.pos))
+        self.advance()
+      elif self.current_char == '.':
+        tokens.append(Token(CLF_DOT, pos_start=self.pos))
         self.advance()
       elif self.current_char == '!':
         token, error = self.make_not_equals()
@@ -537,6 +542,16 @@ class BreakNode:
   def __init__(self, pos_start, pos_end):
     self.pos_start = pos_start
     self.pos_end = pos_end
+
+class ClassNode:
+  def __init__(self, class_name_tok, body_nodes, pos_start, pos_end):
+    self.class_name_tok = class_name_tok
+    self.body_nodes = body_nodes
+    self.pos_start = pos_start
+    self.pos_end = pos_end
+
+
+    self.child = None
 
 #parse result
 class ParseResult:
@@ -869,6 +884,12 @@ class Parser:
         return res
       return res.success(func_def)
 
+    elif tok.matches(CLF_KEYWORD, 'class'):
+      class_node = res.register(self.class_node())
+      if res.error:
+        return res
+      return res.success(class_node)
+
     return res.failure(InvalidSyntaxError(
       tok.pos_start, tok.pos_end,
       "Expected int, float, identifier, '+', '-', '(', '^', '[', IF', 'for', 'while', 'fun'"
@@ -1182,6 +1203,52 @@ class Parser:
       return res
 
     return res.success(WhileNode(condition, body, False))
+
+  def class_node(self):
+    res = ParseResult()
+    pos_start = self.current_tok.pos_start
+
+    if not self.current_tok.matches(CLF_KEYWORD, 'class'):
+      return res.failure(InvalidSyntaxError(
+        self.current_tok.pos_start, self.current_tok.pos_end,
+        f"Expected 'class'"
+      ))
+
+    res.register_advancement()
+    self.advance()
+
+    if self.current_tok.type != CLF_IDENTIFIER:
+      return res.failure(InvalidSyntaxError(
+        self.current_tok.pos_start, self.current_tok.pos_end,
+        f"Expected identifier"
+      ))
+
+    class_name_tok = self.current_tok
+    self.advance()
+
+    if self.current_tok.type != CLF_NEWLINE:
+      return res.failure(InvalidSyntaxError(
+        self.current_tok.pos_start, self.current_tok.pos_end,
+        f"Expected newline"
+      ))
+    
+    res.register_advancement()
+    self.advance()
+
+    body = res.register(self.statements())
+    if res.error:
+      return res
+
+    if not self.current_tok.matches(CLF_KEYWORD, 'end'):
+      return res.failure(InvalidSyntaxError(
+        self.current_tok.pos_start, self.current_tok.pos_end,
+        f"Expected 'end'"
+      ))
+
+    res.register_advancement()
+    self.advance()
+
+    return res.success(ClassNode(class_name_tok, body, pos_start, self.current_tok.pos_end))
 
   def func_def(self):
     res = ParseResult()
@@ -1693,6 +1760,75 @@ class BaseFunction(Value):
     self.populate_args(arg_names, args, exec_ctx)
     return res.success(None)
 
+class Instance(Value):
+  def __init__(self, parent_class):
+    super().__init__()
+    self.parent_class = parent_class
+    self.symbol_table = None
+
+  def copy(self):
+    return self
+  
+  def __repr__(self):
+    return f"<instance of class {self.parent_class.name}>"
+
+class Class(Value):
+  def __init__(self, name, symbol_table):
+    super().__init__()
+    self.name = name
+    self.symbol_table = symbol_table
+  
+  def dived_by(self, other):
+    if not isinstance(other, String):
+      return None, self.illegal_operation(other)
+
+    value = self.symbol_table.get(other.value)
+    if not value:
+      return None, RTError(
+        self.pos_start, self.pos_end,
+        f"'{other.value}' is not defined",
+        self.context
+      )
+
+    return Value, None
+
+  def execute(self, args):
+    res = RTResult()
+    exec_ctx = Context(self.name, self.context, self.pos_start)
+
+    inst = Instance(self)
+    inst.symbol_table = SymbolTable(self.symbol_table)
+
+    exec_ctx.symbol_table = inst.symbol_table
+    for name in self.symbol_table.symbols:
+      inst.symbol_table.set(name, self.symbol_table.symbols[name].copy())
+
+    for name in inst.symbol_table.symbols:
+      inst.symbol_table.symbols[name].set_context(exec_ctx)
+    
+    inst.symbol_table.set('this', inst)
+    inst.symbol_table.set('self', inst)
+
+    method = inst.symbol_table.symbols[self.name] if self.name in inst.symbol_table.symbols else None
+
+    if method is None or not isinstance(method, Function):
+      return res.failure(RTError(
+        self.pos_start, self.pos_end,
+        f"Function '{self.name}' not defined",
+        self.context
+      ))
+    res.register(method.execute(args))
+    if res.should_return():
+      return res
+    
+    return res.success(inst.set_context(self.context).set_pos(self.pos_start, self.pos_end))
+
+  def copy(self):
+    return self
+  
+  def __repr__(self):
+    return f"<class {self.name}>"
+
 class Function(BaseFunction):
   def __init__(self, name, body_node, arg_names, should_auto_return):
     super().__init__(name)
@@ -1783,7 +1919,7 @@ class BuiltInFunction(BaseFunction):
   execute_input_int.arg_names = []
 
   def execute_clear(self, exec_ctx):
-    os.system('cls' if os.name == 'nt' else 'clear') 
+    os.system('clear' if platform.system() in ['Linux', 'linux', 'darwin', 'Darwin'] else 'cls') 
     return RTResult().success(Number.null)
   execute_clear.arg_names = []
 
@@ -2223,6 +2359,18 @@ class Interpreter:
 
   def visit_BreakNode(self, node, context):
     return RTResult().success_break()
+
+  def visit_ClassNode(self, node, context):
+    res = RTResult()
+    ctx = Context(node.class_name_tok.value, node.pos_start)
+
+    ctx.symbol_table = SymbolTable(context.symbol_table)
+
+    res.register(self.visit(node.body_nodes, ctx))
+    if res.should_return():
+      return res
+    
+    cls_ = Class(node.class_name_tok)
 
 
 #information
