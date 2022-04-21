@@ -1,5 +1,0 @@
-var name = "arfy slowy"
-print("input your name")
-var name2 = input()
-print(name)
-print("hello "+name2)
